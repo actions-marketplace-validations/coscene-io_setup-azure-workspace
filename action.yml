@@ -1,4 +1,8 @@
 name: 'Setup Azure Workspace'
+author: "@spencercjh"
+branding:
+  icon: cloud
+  color: blue
 description: 'Setup a out-of-the-box workspace with ACR and AKS for Azure'
 inputs:
   client-id:
