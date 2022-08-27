@@ -1,0 +1,46 @@
+name: 'Setup Azure Workspace'
+description: 'Setup a out-of-the-box workspace with ACR and AKS for Azure'
+inputs:
+  client-id:
+    description: "OIDC client id to login"
+    required: true
+  tenant-id:
+    description: "OIDC tenant id to login"
+    required: true
+  subscription-id:
+    description: "OIDC subscription id to login"
+    required: true
+  acr-login-server:
+    description: "ACR registry to login"
+    required: true
+  acr-username:
+    description: "ACR username to login"
+    required: true
+  acr-password:
+    description: "ACR password to login"
+    required: true
+  aks-resource-group:
+    description: "AKS cluster resource group"
+    required: true
+  aks-cluster-name:
+    description: "AKS cluster name to use"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: azure/login@v1
+      with:
+        client-id: ${{ inputs.client-id }}
+        tenant-id: ${{ inputs.tenant-id }}
+        subscription-id: ${{ inputs.subscription-id }}
+    - name: Login to ACR Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ inputs.acr-login-server }}
+        username: ${{ inputs.acr-username }}
+        password: ${{ inputs.acr-password }}
+    - uses: azure/aks-set-context@v3
+      with:
+        resource-group: ${{ inputs.aks-resource-group }}
+        cluster-name: ${{ inputs.aks-cluster-name }}
+        admin: true
