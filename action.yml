@@ -43,7 +43,7 @@ runs:
         login-server: ${{ inputs.acr-login-server }}
         username: ${{ inputs.acr-username }}
         password: ${{ inputs.acr-password }}
-    - uses: azure/aks-set-context@v3
+    - uses: azure/aks-set-context@v4
       with:
         resource-group: ${{ inputs.aks-resource-group }}
         cluster-name: ${{ inputs.aks-cluster-name }}
